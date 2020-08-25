@@ -249,3 +249,5 @@ Temporary Items
 .idea/modules.xml
 .idea/sqldialects.xml
 .idea/vcs.xml
+
+config.py
