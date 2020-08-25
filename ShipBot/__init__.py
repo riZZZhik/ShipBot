@@ -14,5 +14,5 @@ def setup(dp):
 
 
 async def on_shutdown(_):
-    db = database.Database(database_file
+    db = database.Database(database_file)
     db.save_database()
