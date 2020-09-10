@@ -25,8 +25,10 @@ async def make_couple(msg: types.Message):
     if not td:
         usernames = database.get_usernames(group_name)
         couple = sample(usernames, 2)
+        database.update_couple(group_name, couple)
 
         await msg.reply(NEW_COUPLE_STRING.format(couple[0], couple[1]))
     else:
+        couple = database.last_couple(group_name)
         td_string = humanize.naturaltime(td)
-        await msg.reply(OLD_COUPLE_STRING.format("T1", "T2", td_string))
+        await msg.reply(OLD_COUPLE_STRING.format(couple[0], couple[1], td_string))

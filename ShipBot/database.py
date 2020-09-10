@@ -64,6 +64,20 @@ class Database:
         else:
             return timedelta(seconds=td - couples_delta)
 
+    # Update couple
+    def update_couple(self, group_name, couple):
+        couple = ",".join(couple)
+        print(couple)
+        self.cursor.execute(f"UPDATE COUPLES SET {group_name} = \"{couple}\"")
+        self.connect.commit()
+
+    # Get last couple
+    def last_couple(self, group_name):
+        self.cursor.execute(f"SELECT {group_name} from COUPLES")
+        couple = self.cursor.fetchone()[0]
+        couple = [x for x in couple.split(",")]
+        return couple
+
     # Save and close database
     def save_database(self):
         self.connect.commit()
