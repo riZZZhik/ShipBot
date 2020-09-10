@@ -56,6 +56,7 @@ class Database:
         # Get time difference between now and last couple
         td = cur_time - last_couple_time
 
+        # Update delta or return old one
         if td > couples_delta:
             self.cursor.execute(f"UPDATE TIME SET {group_name} = {cur_time} WHERE TRUE")
             self.connect.commit()
