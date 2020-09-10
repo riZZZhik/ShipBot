@@ -32,17 +32,17 @@ class Database:
         result = self.cursor.fetchall()
         return ["".join(x) for x in result]
 
-    # Check and add new user if needed
-    def check_new_user(self, group_name, user_id, username, name):  # TODO: Update usernames
-        self.cursor.execute(f"SELECT * FROM {group_name} WHERE user_id={user_id}")
-        if not self.cursor.fetchone():
-            self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, {username}, {name}, 0")
-            log.info(f"Added {username} to table")
-            self.save_database()
+    # Add new user to database
+    def add_user(self, group_name, user_id, username, name):  # TODO: Update usernames
+        self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, \"{username}\", \"{name}\", 0)")
+        log.info(f"Added {name} to {group_name} table")
+        self.save_database()
 
-            return True
-        else:
-            return False
+    # Remove user from database
+    def delete_user(self, group_name, user_id, username):
+        self.cursor.execute(f"DELETE FROM {group_name} WHERE user_id={user_id}")
+        log.info(f"removed {username} from {group_name} table")
+        self.save_database()
 
     # Check new couple time delta
     def update_time(self, group_name):
@@ -59,7 +59,7 @@ class Database:
         # Update delta or return old one
         if td > couples_delta:
             self.cursor.execute(f"UPDATE TIME SET {group_name} = {cur_time} WHERE TRUE")
-            self.connect.commit()
+            self.save_database()
 
             return False
         else:
@@ -68,9 +68,8 @@ class Database:
     # Update couple
     def update_couple(self, group_name, couple):
         couple = ",".join(couple)
-        print(couple)
         self.cursor.execute(f"UPDATE COUPLES SET {group_name} = \"{couple}\"")
-        self.connect.commit()
+        self.save_database()
 
     # Get last couple
     def last_couple(self, group_name):

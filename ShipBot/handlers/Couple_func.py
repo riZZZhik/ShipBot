@@ -6,6 +6,7 @@ from aiogram import types
 
 # Import time humanizer
 import humanize
+
 humanize.i18n.activate("ru_RU")
 
 # Module imports
@@ -30,5 +31,5 @@ async def make_couple(msg: types.Message):
         await msg.reply(NEW_COUPLE_STRING.format(couple[0], couple[1]))
     else:
         couple = database.last_couple(group_name)
-        td_string = humanize.naturaldelta(td)
+        td_string = humanize.naturaltime(td)
         await msg.reply(OLD_COUPLE_STRING.format(couple[0], couple[1], td_string))
