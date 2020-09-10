@@ -5,7 +5,7 @@ from .logger import log
 from .config import *
 
 # Import modules
-from . import database
+from .database import Database
 from . import handlers
 
 
@@ -14,5 +14,5 @@ def setup(dp):
 
 
 async def on_shutdown(_):
-    db = database.Database(database_file)
+    db = Database(groups_dict, database_file)
     db.save_database()
