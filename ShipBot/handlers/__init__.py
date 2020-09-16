@@ -13,7 +13,6 @@ def setup(dp: Dispatcher):
     dp.register_message_handler(start, commands=['start'])
     dp.register_message_handler(make_couple, commands=['makecouple'])
 
-
     dp.register_message_handler(get_base, commands=['base'], is_chat_admin=True)
 
     dp.register_message_handler(new_member, lambda msg: not msg.new_chat_members[0].is_bot,

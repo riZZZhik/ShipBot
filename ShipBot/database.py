@@ -36,7 +36,7 @@ class Database:
         if not self.cursor.fetchone():
             self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, \"{username}\", \"{name}\", 0)")
             self.cursor.execute("SELECT * FROM expresses ORDER BY username")
-            log.info(f"Added {name} to {group_name} table")
+            log.info(f"Added @{username} to {group_name} table")
             self.save_database()
 
             return True
@@ -46,7 +46,7 @@ class Database:
     # Remove user from database
     def delete_user(self, group_name, user_id, username):
         self.cursor.execute(f"DELETE FROM {group_name} WHERE user_id={user_id}")
-        log.info(f"removed {username} from {group_name} table")
+        log.info(f"removed @{username} from {group_name} table")
         self.save_database()
 
     # Check new couple time delta
