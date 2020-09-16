@@ -1,18 +1,15 @@
-# Import logger
-from .logger import log
-
-# Import config file
-from .config import *
-
-# Import modules
-from .database import Database
-from . import handlers
-
-
+# Setup handlers
 def setup(dp):
+    from . import handlers
+
     handlers.setup(dp)
 
 
+# Save Database on shutdown
 async def on_shutdown(_):
-    db = Database(groups_dict, database_file)
+    from .database import Database
+    from .config import database_file
+
+    db = Database(database_file)
     db.save_database()
+    db.cursor.close()

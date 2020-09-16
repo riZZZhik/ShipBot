@@ -1,11 +1,9 @@
-from config import API_TOKEN
-
 # Aiogram imports
 from aiogram import Bot, Dispatcher, executor
 
 # Import ShipBot module
 import ShipBot
-
+from config import API_TOKEN
 
 # Initialize ShipBot and dispatcher
 bot = Bot(token=API_TOKEN)

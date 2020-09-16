@@ -1,5 +1,5 @@
 # Import logging
-from ShipBot import log
+from .logger import log
 
 # import database library
 import sqlite3
@@ -11,12 +11,10 @@ from datetime import datetime, timedelta
 from .config import couples_delta
 
 
-# TODO: multigroup
 class Database:
     """
     Class to interact with sqlite3 database
     """
-
     def __init__(self, file='database.db'):
         self.connect = sqlite3.connect(file)
         self.cursor = self.connect.cursor()
@@ -34,9 +32,16 @@ class Database:
 
     # Add new user to database
     def add_user(self, group_name, user_id, username, name):  # TODO: Update usernames
-        self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, \"{username}\", \"{name}\", 0)")
-        log.info(f"Added {name} to {group_name} table")
-        self.save_database()
+        self.cursor.execute(f"SELECT * FROM {group_name} WHERE user_id={user_id}")
+        if not self.cursor.fetchone():
+            self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, \"{username}\", \"{name}\", 0)")
+            self.cursor.execute("SELECT * FROM expresses ORDER BY username")
+            log.info(f"Added {name} to {group_name} table")
+            self.save_database()
+
+            return True
+        else:
+            return False
 
     # Remove user from database
     def delete_user(self, group_name, user_id, username):
@@ -80,6 +85,11 @@ class Database:
 
     # Save and close database
     def save_database(self):
+        self.cursor.execute("SELECT * FROM expresses ORDER BY username")
         self.connect.commit()
-        self.connect.close()
         log.info("Database saved")
+
+    # Delete duplicate users
+    def delete_duplicate(self):
+        self.cursor.execute("DELETE FROM expresses WHERE rowid NOT IN "
+                            f"(SELECT min(rowid) FROM expresses GROUP BY user_id);")

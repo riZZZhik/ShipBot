@@ -1,28 +1,28 @@
-# Other imports
-from random import sample
-
 # Aiogram imports
 from aiogram import types
 
 # Import time humanizer
 import humanize
 
-humanize.i18n.activate("ru_RU")
-
 # Module imports
 from ..config import groups_dict
 from ..database import Database
 from ..texts import NEW_COUPLE_STRING, OLD_COUPLE_STRING
 
+# Other imports
+from random import sample
 
-# TODO: Timer
-# TODO: Reply before timer
+# Initialize time humanizer language
+humanize.i18n.activate("ru_RU")
+
+
+# Reply with random couple
 async def make_couple(msg: types.Message):
-    # Get couple
     database = Database("Couples.sqlite")
     group_name = groups_dict[msg.chat.id]
 
     td = database.update_time(group_name)
+    # Check time delta
     if not td:
         usernames = database.get_usernames(group_name)
         couple = sample(usernames, 2)

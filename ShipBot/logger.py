@@ -2,7 +2,11 @@
 import logging
 from loguru import logger
 
+# Module imports
+from .config import log_file
 
+
+# Default logging module using loguru
 class InterceptHandler(logging.Handler):
     LEVELS_MAP = {
         logging.CRITICAL: "CRITICAL",
@@ -20,7 +24,8 @@ class InterceptHandler(logging.Handler):
         logger_opt.log(self._get_level(record), record.getMessage())
 
 
-logging.basicConfig(handlers=[InterceptHandler()], level=logging.INFO)
+# Initialization
+logging.basicConfig(level=logging.INFO, handlers=[InterceptHandler()])
 log = logging.getLogger(__name__)
-logger.add("logs/Couples.log", rotation="1 d", compression="tar.xz", backtrace=True, diagnose=True, level="INFO")
-log.info("Enabled logging intro sophie.log file.")
+logger.add(log_file, rotation="1 d", compression="tar.xz", backtrace=True, diagnose=True, level="INFO")
+log.info(f"Enabled logging into {log_file}")
