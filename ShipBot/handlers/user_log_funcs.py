@@ -16,7 +16,7 @@ async def new_member(msg: types.Message):
                           msg.new_chat_members[0].username,
                           msg.new_chat_members[0].full_name)
 
-        await msg.reply(new_user.format(msg.new_chat_members[0].username))
+        await msg.reply(new_user.format(msg.new_chat_members[0].full_name))
     else:
         await msg.reply(no_username.format(msg.new_chat_members[0].full_name))
 

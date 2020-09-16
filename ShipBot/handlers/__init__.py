@@ -11,7 +11,7 @@ from .user_log_funcs import new_member, member_left, new_member_from_msg
 # Initialize handlers
 def setup(dp: Dispatcher):
     dp.register_message_handler(start, commands=['start'])
-    dp.register_message_handler(make_couple, commands=['MakeCouple'])
+    dp.register_message_handler(make_couple, commands=['makecouple'])
 
 
     dp.register_message_handler(get_base, commands=['base'], is_chat_admin=True)
