@@ -5,7 +5,7 @@ from aiogram import types
 import humanize
 
 # Module imports
-from ..config import groups_dict
+from ..config import groups_dict, database_file
 from ..database import Database
 from ..texts import NEW_COUPLE_STRING, OLD_COUPLE_STRING
 
@@ -18,7 +18,7 @@ humanize.i18n.activate("ru_RU")
 
 # Reply with random couple
 async def make_couple(msg: types.Message):
-    database = Database("Couples.sqlite")
+    database = Database(database_file)
     group_name = groups_dict[msg.chat.id]
 
     td = database.update_time(group_name)
