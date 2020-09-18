@@ -5,6 +5,7 @@ from aiogram import types, Dispatcher
 from .start_func import start
 from .Couple_func import make_couple
 from .admin_funcs import get_base
+from .info_funcs import get_user_info, get_group_info
 from .user_log_funcs import new_member, member_left, new_member_from_msg
 
 
@@ -14,6 +15,9 @@ def setup(dp: Dispatcher):
     dp.register_message_handler(make_couple, commands=['makecouple'])
 
     dp.register_message_handler(get_base, commands=['base'], is_chat_admin=True)
+
+    dp.register_message_handler(get_user_info, commands=['mystat'])
+    dp.register_message_handler(get_group_info, commands=['allstat'])
 
     dp.register_message_handler(new_member, lambda msg: not msg.new_chat_members[0].is_bot,
                                 content_types=types.ContentType.NEW_CHAT_MEMBERS)

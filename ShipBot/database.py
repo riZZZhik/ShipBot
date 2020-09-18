@@ -24,6 +24,15 @@ class Database:
         self.cursor.execute(f"SELECT * FROM {group_name}")
         return self.cursor.fetchall()
 
+    # Return data for couple statistics
+    def get_info(self, group_name, user_id=0):
+        if user_id:
+            self.cursor.execute(f"SELECT count FROM {group_name} WHERE user_id={user_id}")
+            return self.cursor.fetchone()
+        else:
+            self.cursor.execute(f"SELECT username, count FROM {group_name} WHERE count != 0 ORDER BY count DESC")
+            return self.cursor.fetchall()
+
     # Return list of usernames
     def get_usernames(self, group_name):
         self.cursor.execute(f"SELECT username FROM {group_name}")
@@ -72,6 +81,9 @@ class Database:
 
     # Update couple
     def update_couple(self, group_name, couple):
+        self.cursor.execute("UPDATE expresses SET count = count + 1 "
+                            f"WHERE username IN (\"{couple[0]}\", \"{couple[1]}\")")
+
         couple = ",".join(couple)
         self.cursor.execute(f"UPDATE COUPLES SET {group_name} = \"{couple}\"")
         self.save_database()
