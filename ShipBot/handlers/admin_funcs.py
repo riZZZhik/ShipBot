@@ -6,6 +6,10 @@ from ..config import groups_dict
 from ..database import Database
 
 
+async def info(msg: types.Message):
+    await msg.reply(msg)
+
+
 # Reply with a list of users
 async def get_base(msg: types.Message):
     database = Database("Couples.sqlite")
