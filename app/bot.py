@@ -1,15 +1,20 @@
 """Telegram Ship bot."""
-import config
 from aiogram import Bot, Dispatcher, executor
-from src import on_shutdown, setup
+from src import config, on_shutdown, setup
 
-# Initialize ShipBot and dispatcher
-bot = Bot(token=config.API_TOKEN)
-dp = Dispatcher(bot)
 
-# Initialize handlers
-setup(dp)
+def run_bot():
+    # Initialize ShipBot and dispatcher
+    bot = Bot(token=config.TOKEN)
+    dp = Dispatcher(bot)
+
+    # Initialize handlers
+    setup(dp)
+
+    # Run bot
+    executor.start_polling(dp, skip_updates=True, on_shutdown=on_shutdown)
+
 
 # Run executor
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True, on_shutdown=on_shutdown)
+    run_bot()

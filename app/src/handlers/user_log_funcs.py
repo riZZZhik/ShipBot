@@ -1,7 +1,7 @@
 """User log functions."""
 from aiogram import types
 
-from ..config import database_file, groups_dict
+from ..config import config
 from ..database import Database
 from ..logger import log
 from ..texts import (
@@ -20,9 +20,9 @@ async def add_user(msg: types.Message) -> None:
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
+    database = Database(config.database_file)
     try:
-        group_name = groups_dict[msg.chat.id]
+        group_name = config.groups[msg.chat.id]
     except KeyError:
         await msg.reply(unknown_chat)
         log.info(f"Unknown group chat with id: {msg.chat.id}")
@@ -45,8 +45,8 @@ async def remove_user(msg: types.Message) -> None:  # TODO: BlackList
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
-    group_name = groups_dict[msg.chat.id]
+    database = Database(config.database_file)
+    group_name = config.groups[msg.chat.id]
 
     if msg.reply_to_message:
         database.delete_user(
@@ -65,7 +65,7 @@ async def new_member(msg: types.Message) -> None:
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
+    database = Database(config.database_file)
     group_name = "expresses"
     for user in msg.new_chat_members:
         if not user.is_bot:
@@ -82,8 +82,8 @@ async def user_left(msg: types.Message) -> None:
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
-    group_name = groups_dict[msg.chat.id]
+    database = Database(config.database_file)
+    group_name = config.groups[msg.chat.id]
 
     database.delete_user(group_name, msg.left_chat_member.id, msg.left_chat_member.username)
 

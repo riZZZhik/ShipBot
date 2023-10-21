@@ -1,4 +1,5 @@
 """Package with all handlers and setup function for dispatcher."""
+from .config import config
 
 
 def setup(dp) -> None:
@@ -10,9 +11,11 @@ def setup(dp) -> None:
 
 async def on_shutdown(_) -> None:
     """Graceful shutdown with saving database."""
-    from .config import database_file
     from .database import Database
 
-    db = Database(database_file)
+    db = Database(config.database_file)
     db.save_database()
     db.cursor.close()
+
+
+__all__ = ["config", "setup", "on_shutdown"]

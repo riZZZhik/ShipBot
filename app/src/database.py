@@ -3,7 +3,7 @@ import sqlite3
 from datetime import datetime, timedelta
 from typing import Any, Literal
 
-from .config import couples_delta
+from .config import config
 from .logger import log
 
 
@@ -124,13 +124,13 @@ class Database:
         td = cur_time - last_couple_time
 
         # Update delta or return old one
-        if td > couples_delta:
+        if td > config.couples_delta:
             self.cursor.execute(f"UPDATE TIME SET {group_name} = {cur_time} WHERE TRUE")
             self.save_database()
 
             return False
 
-        return timedelta(seconds=td - couples_delta)
+        return timedelta(seconds=td - config.couples_delta)
 
     def update_couple(self, group_name: str, couple: list[str]) -> None:
         """Update couple in database.

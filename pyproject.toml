@@ -11,6 +11,7 @@ python = "^3.11"
 humanize = "^4.8.0"
 aiogram = "^2"
 loguru = "^0.7.2"
+pyyaml = "^6.0.1"
 
 [tool.poetry.group.lint]
 optional = true
@@ -47,7 +48,9 @@ mypy_path = "./app"
 
 [[tool.mypy.overrides]]
 module = [
-    "aiogram.*"
+    "aiogram.*",
+    "loguru.*",
+    "yaml.*"
 ]
 ignore_missing_imports = true
 

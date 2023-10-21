@@ -1,7 +1,7 @@
 """Database info functions."""
 from aiogram import types
 
-from ..config import database_file, groups_dict
+from ..config import config
 from ..database import Database
 from ..texts import allstat, allstat_user, mystat, no_allstat
 
@@ -12,8 +12,8 @@ async def get_user_info(msg: types.Message) -> None:
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
-    group_name = groups_dict[msg.chat.id]
+    database = Database(config.database_file)
+    group_name = config.groups[msg.chat.id]
 
     data = database.get_info(group_name, msg.from_user.id)
     await msg.reply(mystat.format(*data))
@@ -25,8 +25,8 @@ async def get_group_info(msg: types.Message) -> None:
     Args:
         msg: aiogram Message.
     """
-    database = Database(database_file)
-    group_name = groups_dict[msg.chat.id]
+    database = Database(config.database_file)
+    group_name = config.groups[msg.chat.id]
 
     data = database.get_info(group_name)
     if data:

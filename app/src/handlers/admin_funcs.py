@@ -1,7 +1,7 @@
 """Admin functions."""
 from aiogram import types
 
-from ..config import groups_dict
+from ..config import config
 from ..database import Database
 
 
@@ -21,7 +21,7 @@ async def get_base(msg: types.Message) -> None:
         msg: aiogram Message.
     """
     database = Database("Couples.sqlite")
-    group_name = groups_dict[msg.chat.id]
+    group_name = config.groups_dict[msg.chat.id]
 
     msg_text = "Список купидона:\n"
     for user in database.get_base(group_name):

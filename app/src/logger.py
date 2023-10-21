@@ -3,7 +3,7 @@ import logging
 
 from loguru import logger
 
-from .config import log_file
+from .config import config
 
 
 class InterceptHandler(logging.Handler):
@@ -31,11 +31,11 @@ class InterceptHandler(logging.Handler):
 logging.basicConfig(level=logging.INFO, handlers=[InterceptHandler()])
 log = logging.getLogger(__name__)
 logger.add(
-    log_file,
+    config.log_file,
     rotation="1 d",
     compression="tar.xz",
     backtrace=True,
     diagnose=True,
     level="INFO",
 )
-log.info(f"Enabled logging into {log_file}")
+log.info(f"Enabled logging into {config.log_file}")
