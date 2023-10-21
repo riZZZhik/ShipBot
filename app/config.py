@@ -1,4 +1,1 @@
-groups_dict = {-1001384861110: "expresses"}
-log_file = "logs.log"
-database_file = "Couples.sqlite"
-couples_delta = 60 * 60 * 4
+API_TOKEN = "1319703130:AAEygBwpINghed1SQqOdvv2__bSaPJisoUI"

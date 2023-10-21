@@ -73,7 +73,7 @@ lint: lint.mypy lint.refurb lint.flake8 lint.xenon lint.isort lint.black ## Lint
 
 .PHONY: run
 run: ## Run the bot
-	poetry run python main.py
+	poetry run python app/bot.py
 
 .PHONY: run.docker
 run.docker: build ## Run the bot in a docker container
