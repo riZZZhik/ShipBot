@@ -1,5 +1,6 @@
 TOKEN: ""
 
-couples_delta: 60 * 60 * 4
+couples_delta: 14400 # 60 * 60 * 4
 groups:
-  expresses: -1001384861110
+  # test_env: -1002113927955
+  -1002113927955: expresses

@@ -14,7 +14,7 @@ class Config:
         config = self.parse(config_path)
 
         self.TOKEN = os.environ.get("TOKEN", config["TOKEN"])
-        self.couples_delta = os.environ.get("COUPLES_DELTA", config["couples_delta"])
+        self.couples_delta = int(os.environ.get("COUPLES_DELTA", config["couples_delta"]))
         self.groups = config["groups"]
 
         self.database_file = os.environ.get("DATABASE_FILE", "database.db")

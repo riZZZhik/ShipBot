@@ -26,6 +26,7 @@ async def add_user(msg: types.Message) -> None:
     except KeyError:
         await msg.reply(unknown_chat)
         log.info(f"Unknown group chat with id: {msg.chat.id}")
+        return
 
     if not msg.from_user.is_bot:
         if msg.from_user.username:
