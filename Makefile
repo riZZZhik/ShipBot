@@ -19,10 +19,12 @@ help: ## Show this help
 
 .PHONY: install
 install: ## Install project dependencies
+	poetry env use 3.11
+	poetry lock --no-update
 	poetry install
 
 .PHONY: install.dev
-install.dev: ## Install project dependencies for development
+install.dev: install ## Install project dependencies for development
 	poetry install --with lint
 
 .PHONY: build
