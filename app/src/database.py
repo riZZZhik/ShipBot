@@ -117,7 +117,7 @@ class Database:
         cur_time = datetime.now().timestamp()
 
         # Get last couple time
-        self.cursor.execute(f"SELECT {group_name} from TIME")
+        self.cursor.execute(f"SELECT {group_name} FROM time")
         last_couple_time = self.cursor.fetchone()[0]
 
         # Get time difference between now and last couple
@@ -125,7 +125,7 @@ class Database:
 
         # Update delta or return old one
         if td > config.couples_delta:
-            self.cursor.execute(f"UPDATE TIME SET {group_name} = {cur_time} WHERE TRUE")
+            self.cursor.execute(f"UPDATE time SET {group_name} = {cur_time} WHERE TRUE")
             self.save_database()
 
             return False
@@ -144,7 +144,7 @@ class Database:
             f'WHERE username IN ("{couple[0]}", "{couple[1]}")'
         )
 
-        self.cursor.execute(f'UPDATE COUPLES SET {group_name} = "{",".join(couple)}"')
+        self.cursor.execute(f'UPDATE couples SET {group_name} = "{",".join(couple)}"')
         self.save_database()
 
     def last_couple(self, group_name: str) -> list[Any]:
@@ -153,7 +153,7 @@ class Database:
         Args:
             group_name: Name of group.
         """
-        self.cursor.execute(f"SELECT {group_name} from COUPLES")
+        self.cursor.execute(f"SELECT {group_name} from couples")
         couple = self.cursor.fetchone()[0]
         couple = list(couple.split(","))
         return couple
