@@ -1,14 +1,14 @@
-# Import logging libraries
+"""Logging module for the application.""" ""
 import logging
 
 from loguru import logger
 
-# Module imports
 from .config import log_file
 
 
-# Default logging module using loguru
 class InterceptHandler(logging.Handler):
+    """Intercept logging messages and pass them to loguru."""
+
     LEVELS_MAP = {
         logging.CRITICAL: "CRITICAL",
         logging.ERROR: "ERROR",
@@ -17,15 +17,17 @@ class InterceptHandler(logging.Handler):
         logging.DEBUG: "DEBUG",
     }
 
-    def _get_level(self, record):
+    def _get_level(self, record) -> str:
+        """Get level of log message."""
         return self.LEVELS_MAP.get(record.levelno, record.levelno)
 
-    def emit(self, record):
+    def emit(self, record) -> None:
+        """Emit log message."""
         logger_opt = logger.opt(depth=6, exception=record.exc_info, ansi=True, lazy=True)
         logger_opt.log(self._get_level(record), record.getMessage())
 
 
-# Initialization
+# Initialize
 logging.basicConfig(level=logging.INFO, handlers=[InterceptHandler()])
 log = logging.getLogger(__name__)
 logger.add(

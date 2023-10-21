@@ -32,3 +32,4 @@ extend-exclude =
     venv
     .venv
     .git
+    app/src/texts.py

@@ -1,12 +1,15 @@
-# Setup handlers
-def setup(dp):
+"""Package with all handlers and setup function for dispatcher."""
+
+
+def setup(dp) -> None:
+    """Set up handlers."""
     from . import handlers
 
     handlers.setup(dp)
 
 
-# Save Database on shutdown
-async def on_shutdown(_):
+async def on_shutdown(_) -> None:
+    """Graceful shutdown with saving database."""
     from .config import database_file
     from .database import Database
 

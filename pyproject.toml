@@ -45,7 +45,14 @@ build-backend = "poetry.core.masonry.api"
 python_version = 3.11
 mypy_path = "./app"
 
+[[tool.mypy.overrides]]
+module = [
+    "aiogram.*"
+]
+ignore_missing_imports = true
+
 [tool.xenon]
+xenon_exclude = []
 xenon_max_absolute = "B"
 xenon_max_modules = "B"
 xenon_max_average = "A"

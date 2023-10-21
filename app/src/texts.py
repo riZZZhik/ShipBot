@@ -15,4 +15,4 @@ allstat = "Лучшие любовники:"
 allstat_user = "\n{} — {}"
 no_allstat = "Моментов еще не было, воспользуйтесь /makecouple@MakeCoupleBot"
 
-unknown_chat = "Hello, i dont know your chat to make couples. Please write to my creator: @riZZZhik"
+unknown_chat = "Hello, i dont know your chat to make couples. Please contact my creator: @riZZZhik"

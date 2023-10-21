@@ -1,3 +1,4 @@
+"""Telegram Ship bot."""
 import config
 from aiogram import Bot, Dispatcher, executor
 from src import on_shutdown, setup

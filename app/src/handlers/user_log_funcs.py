@@ -1,10 +1,8 @@
-# Aiogram imports
+"""User log functions."""
 from aiogram import types
 
 from ..config import database_file, groups_dict
 from ..database import Database
-
-# Module imports
 from ..logger import log
 from ..texts import (
     left_user,
@@ -16,7 +14,12 @@ from ..texts import (
 )
 
 
-async def add_user(msg: types.Message):
+async def add_user(msg: types.Message) -> None:
+    """Add user to database.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database(database_file)
     try:
         group_name = groups_dict[msg.chat.id]
@@ -36,7 +39,12 @@ async def add_user(msg: types.Message):
             await msg.reply(no_username.format(msg.from_user.full_name))
 
 
-async def remove_user(msg: types.Message):  # TODO: BlackList
+async def remove_user(msg: types.Message) -> None:  # TODO: BlackList
+    """Remove user from database.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database(database_file)
     group_name = groups_dict[msg.chat.id]
 
@@ -51,7 +59,12 @@ async def remove_user(msg: types.Message):  # TODO: BlackList
         await msg.reply(remove_user_no_reply)
 
 
-async def new_member(msg: types.Message):
+async def new_member(msg: types.Message) -> None:
+    """Add new member to database.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database(database_file)
     group_name = "expresses"
     for user in msg.new_chat_members:
@@ -63,7 +76,12 @@ async def new_member(msg: types.Message):
                 await msg.reply(no_username.format(msg.from_user.full_name))
 
 
-async def user_left(msg: types.Message):
+async def user_left(msg: types.Message) -> None:
+    """Remove user from database.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database(database_file)
     group_name = groups_dict[msg.chat.id]
 

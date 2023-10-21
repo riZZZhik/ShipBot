@@ -1,12 +1,9 @@
-# Aiogram imports
-# Other imports
+"""Make couple function."""
 from random import sample
 
-# Import time humanizer
 import humanize
 from aiogram import types
 
-# Module imports
 from ..config import database_file, groups_dict
 from ..database import Database
 from ..texts import NEW_COUPLE_STRING, OLD_COUPLE_STRING
@@ -15,8 +12,15 @@ from ..texts import NEW_COUPLE_STRING, OLD_COUPLE_STRING
 humanize.i18n.activate("ru_RU")
 
 
-# Reply with random couple
-async def make_couple(msg: types.Message):
+async def make_couple(msg: types.Message) -> None:
+    """Make new couple.
+
+    If time delta is less than couples_delta, replies with old couple.
+    Else, makes new couple and replies with it.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database(database_file)
     group_name = groups_dict[msg.chat.id]
 

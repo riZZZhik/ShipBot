@@ -1,17 +1,25 @@
-# Aiogram imports
+"""Admin functions."""
 from aiogram import types
 
-# Module imports
 from ..config import groups_dict
 from ..database import Database
 
 
-async def info(msg: types.Message):
+async def info(msg: types.Message) -> None:
+    """Reply with message info.
+
+    Args:
+        msg: aiogram Message.
+    """
     await msg.reply(msg)
 
 
-# Reply with a list of users
-async def get_base(msg: types.Message):
+async def get_base(msg: types.Message) -> None:
+    """Reply with database info.
+
+    Args:
+        msg: aiogram Message.
+    """
     database = Database("Couples.sqlite")
     group_name = groups_dict[msg.chat.id]
 
@@ -21,4 +29,4 @@ async def get_base(msg: types.Message):
         msg_text += ", ".join(user)
         msg_text += "\n"
 
-    await msg.reply(str(msg_text))
+    await msg.reply(msg_text)
