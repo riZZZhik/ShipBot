@@ -1,5 +1,6 @@
 # Import logging libraries
 import logging
+
 from loguru import logger
 
 # Module imports
@@ -13,7 +14,7 @@ class InterceptHandler(logging.Handler):
         logging.ERROR: "ERROR",
         logging.WARNING: "WARNING",
         logging.INFO: "INFO",
-        logging.DEBUG: "DEBUG"
+        logging.DEBUG: "DEBUG",
     }
 
     def _get_level(self, record):
@@ -27,5 +28,12 @@ class InterceptHandler(logging.Handler):
 # Initialization
 logging.basicConfig(level=logging.INFO, handlers=[InterceptHandler()])
 log = logging.getLogger(__name__)
-logger.add(log_file, rotation="1 d", compression="tar.xz", backtrace=True, diagnose=True, level="INFO")
+logger.add(
+    log_file,
+    rotation="1 d",
+    compression="tar.xz",
+    backtrace=True,
+    diagnose=True,
+    level="INFO",
+)
 log.info(f"Enabled logging into {log_file}")

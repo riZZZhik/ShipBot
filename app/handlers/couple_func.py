@@ -1,16 +1,15 @@
 # Aiogram imports
-from aiogram import types
+# Other imports
+from random import sample
 
 # Import time humanizer
 import humanize
+from aiogram import types
 
 # Module imports
-from ..config import groups_dict, database_file
+from ..config import database_file, groups_dict
 from ..database import Database
 from ..texts import NEW_COUPLE_STRING, OLD_COUPLE_STRING
-
-# Other imports
-from random import sample
 
 # Initialize time humanizer language
 humanize.i18n.activate("ru_RU")

@@ -4,7 +4,7 @@ from aiogram import types
 # Module imports
 from ..config import database_file, groups_dict
 from ..database import Database
-from ..texts import mystat, allstat, allstat_user, no_allstat
+from ..texts import allstat, allstat_user, mystat, no_allstat
 
 
 # Reply user stats

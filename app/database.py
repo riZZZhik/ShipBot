@@ -1,6 +1,4 @@
 # Import logging
-from .logger import log
-
 # import database library
 import sqlite3
 
@@ -9,13 +7,15 @@ from datetime import datetime, timedelta
 
 # Module imports
 from .config import couples_delta
+from .logger import log
 
 
 class Database:
     """
     Class to interact with sqlite3 database
     """
-    def __init__(self, file='database.db'):
+
+    def __init__(self, file="database.db"):
         self.connect = sqlite3.connect(file)
         self.cursor = self.connect.cursor()
 
@@ -30,7 +30,9 @@ class Database:
             self.cursor.execute(f"SELECT count FROM {group_name} WHERE user_id={user_id}")
             return self.cursor.fetchone()
         else:
-            self.cursor.execute(f"SELECT username, count FROM {group_name} WHERE count != 0 ORDER BY count DESC")
+            self.cursor.execute(
+                f"SELECT username, count FROM {group_name} WHERE count != 0 ORDER BY count DESC"
+            )
             return self.cursor.fetchall()
 
     # Return list of usernames
@@ -45,7 +47,9 @@ class Database:
         if not self.cursor.fetchone():
             self.cursor.execute(f"SELECT * FROM black_list WHERE user_id={user_id}")
             if not self.cursor.fetchone():
-                self.cursor.execute(f"INSERT INTO {group_name} VALUES ({user_id}, \"{username}\", \"{name}\", 0)")
+                self.cursor.execute(
+                    f'INSERT INTO {group_name} VALUES ({user_id}, "{username}", "{name}", 0)'
+                )
                 self.cursor.execute("SELECT * FROM expresses ORDER BY username")
                 log.info(f"Added @{username} to {group_name} table")
                 self.save_database()
@@ -83,11 +87,13 @@ class Database:
 
     # Update couple
     def update_couple(self, group_name, couple):
-        self.cursor.execute("UPDATE expresses SET count = count + 1 "
-                            f"WHERE username IN (\"{couple[0]}\", \"{couple[1]}\")")
+        self.cursor.execute(
+            "UPDATE expresses SET count = count + 1 "
+            f'WHERE username IN ("{couple[0]}", "{couple[1]}")'
+        )
 
         couple = ",".join(couple)
-        self.cursor.execute(f"UPDATE COUPLES SET {group_name} = \"{couple}\"")
+        self.cursor.execute(f'UPDATE COUPLES SET {group_name} = "{couple}"')
         self.save_database()
 
     # Get last couple
@@ -105,5 +111,7 @@ class Database:
 
     # Delete duplicate users
     def delete_duplicate(self):
-        self.cursor.execute("DELETE FROM expresses WHERE rowid NOT IN "
-                            f"(SELECT min(rowid) FROM expresses GROUP BY user_id);")
+        self.cursor.execute(
+            "DELETE FROM expresses WHERE rowid NOT IN "
+            f"(SELECT min(rowid) FROM expresses GROUP BY user_id);"
+        )
