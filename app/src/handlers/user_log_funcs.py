@@ -27,7 +27,7 @@ async def add_user(msg: types.Message) -> None:
             await msg.reply(no_username.format(msg.from_user.full_name))
 
 
-async def remove_user(msg: types.Message) -> None:  # TODO: BlackList
+async def remove_user(msg: types.Message) -> None:
     """Remove user from database.
 
     Args:

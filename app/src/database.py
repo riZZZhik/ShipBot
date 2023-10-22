@@ -41,7 +41,7 @@ class Database:
         Returns:
             List of tuples with database info.
         """
-        self.cursor.execute(f"SELECT * FROM {chat_id}")
+        self.cursor.execute(f'SELECT * FROM "{chat_id}"')
         return self.cursor.fetchall()
 
     def get_info(self, chat_id: int, user_id: int = 0) -> Any | list[Any]:
