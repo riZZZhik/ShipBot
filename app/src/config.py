@@ -15,9 +15,9 @@ class Config:
 
         self.TOKEN = os.environ.get("TOKEN", config["TOKEN"])
         self.couples_delta = int(os.environ.get("COUPLES_DELTA", config["couples_delta"]))
-        self.groups = config["groups"]
+        self.min_users = int(os.environ.get("MIN_USERS", config["min_users"]))
 
-        self.database_file = os.environ.get("DATABASE_FILE", "database.db")
+        self.database_file = os.environ.get("DATABASE_FILE", "database.sqlite")
         self.log_file = os.environ.get("LOG_FILE", "app.log")
 
     def parse(self, config_path: str) -> dict[str, Any]:

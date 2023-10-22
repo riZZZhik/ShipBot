@@ -13,9 +13,8 @@ async def get_user_info(msg: types.Message) -> None:
         msg: aiogram Message.
     """
     database = Database(config.database_file)
-    group_name = config.groups[msg.chat.id]
 
-    data = database.get_info(group_name, msg.from_user.id)
+    data = database.get_info(msg.chat.id, msg.from_user.id)
     await msg.reply(mystat.format(*data))
 
 
@@ -26,9 +25,8 @@ async def get_group_info(msg: types.Message) -> None:
         msg: aiogram Message.
     """
     database = Database(config.database_file)
-    group_name = config.groups[msg.chat.id]
 
-    data = database.get_info(group_name)
+    data = database.get_info(msg.chat.id)
     if data:
         message = allstat
         for name, count in data:

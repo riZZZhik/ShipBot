@@ -1,6 +1,6 @@
 # Project ignores
 app.log
-database.db
+database.sqlite
 
 # Editor ignores
 .idea/

@@ -14,25 +14,23 @@ def setup(dp: Dispatcher) -> None:
     Args:
         dp: aiogram Dispatcher.
     """
+    custom_filter = lambda msg: not msg.from_user.is_bot and msg.chat.type != "private"
+
     dp.register_message_handler(start, commands=["start"])
-    dp.register_message_handler(make_couple, commands=["makecouple"])
+    dp.register_message_handler(make_couple, custom_filter, commands=["makecouple"])
 
-    dp.register_message_handler(info, commands=["info"], is_chat_admin=True)
-    dp.register_message_handler(get_base, commands=["base"], is_chat_admin=True)
+    dp.register_message_handler(info, commands=["info"])
+    dp.register_message_handler(get_base, custom_filter, commands=["get_base"], is_chat_admin=True)
 
-    dp.register_message_handler(get_user_info, commands=["mystat"])
-    dp.register_message_handler(get_group_info, commands=["allstat"])
+    dp.register_message_handler(get_user_info, custom_filter, commands=["mystat"])
+    dp.register_message_handler(get_group_info, custom_filter, commands=["allstat"])
 
-    dp.register_message_handler(remove_user, commands=["remove"], is_chat_admin=True)
+    dp.register_message_handler(remove_user, custom_filter, commands=["remove"], is_chat_admin=True)
 
     dp.register_message_handler(
-        new_member,
-        lambda msg: not msg.new_chat_members[0].is_bot,
-        content_types=types.ContentType.NEW_CHAT_MEMBERS,
+        new_member, custom_filter, content_types=types.ContentType.NEW_CHAT_MEMBERS
     )
     dp.register_message_handler(
-        user_left,
-        lambda msg: not msg.left_chat_member.is_bot,
-        content_types=types.ContentType.LEFT_CHAT_MEMBER,
+        user_left, custom_filter, content_types=types.ContentType.LEFT_CHAT_MEMBER
     )
-    dp.register_message_handler(add_user, lambda msg: not msg.from_user.is_bot)
+    dp.register_message_handler(add_user, custom_filter)
