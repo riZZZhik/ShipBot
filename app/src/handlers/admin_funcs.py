@@ -21,10 +21,9 @@ async def get_base(msg: types.Message) -> None:
         msg: aiogram Message.
     """
     database = Database(config.database_file)
-    group_name = config.groups_dict[msg.chat.id]
 
     msg_text = "Список купидона:\n"
-    for user in database.get_base(group_name):
+    for user in database.get_base(msg.chat.id):
         user = [str(x) for x in user]
         msg_text += ", ".join(user)
         msg_text += "\n"

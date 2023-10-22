@@ -35,4 +35,6 @@ def setup(dp: Dispatcher) -> None:
         lambda msg: not msg.left_chat_member.is_bot,
         content_types=types.ContentType.LEFT_CHAT_MEMBER,
     )
-    dp.register_message_handler(add_user, lambda msg: not msg.from_user.is_bot)
+    dp.register_message_handler(
+        add_user, lambda msg: not msg.from_user.is_bot and msg.chat.type != "private"
+    )

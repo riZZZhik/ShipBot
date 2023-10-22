@@ -1,6 +1,4 @@
 TOKEN: ""
 
 couples_delta: 14400 # 60 * 60 * 4
-groups:
-  # test_env: -1002113927955
-  -1002113927955: expresses
+min_users: 2
